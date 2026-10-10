@@ -46,13 +46,13 @@
 
   cover.addEventListener("click", function () {
     audio.play().then(function(){ musicBtn.textContent = "🔊 Muzik"; })
-      .catch(function(){ musicBtn.textContent = ""; });
+      .catch(function(){ musicBtn.textContent = "🎼"; });
     cover.classList.add("hide");
     ctrl.style.display = "flex";
     setTimeout(function () { cover.style.display = "none"; }, 800);
   });
 
-  audio.addEventListener("error", function () { musicBtn.textContent = "⚠ lagu.mp3 tak jumpa"; });
+  audio.addEventListener("error", function () { musicBtn.textContent = "⚠ music.mp3 tak jumpa"; });
 
   musicBtn.addEventListener("click", function () {
     if (audio.paused) { audio.play().catch(function(){}); musicBtn.textContent = "🔊 Muzik"; }
