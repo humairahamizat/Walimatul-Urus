@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Walimatulurus Hisyam & Auni</title>
+<style>
+  html,body{margin:0;height:100%;background:#1c1a17;overflow:hidden}
+
+  /* Canva dimuat DI BELAKANG cover dari awal, jadi bila OPEN ditekan terus nampak, tiada skrin putih */
+  #site{position:fixed;inset:0;width:100%;height:100%;border:0;background:#fff;z-index:1}
+
+  /* Cover = gambar sampul surat kau (cover.jpg) */
+  #cover{position:fixed;inset:0;z-index:5;background:#2a0f14 url("cover.jpg") center/cover no-repeat;
+    transition:opacity .8s ease, transform .8s ease;cursor:pointer;-webkit-tap-highlight-color:transparent}
+  #cover.hide{opacity:0;transform:scale(1.08);pointer-events:none}
+
+
+  #ctrl{position:fixed;left:12px;bottom:calc(12px + env(safe-area-inset-bottom,0px));z-index:10;display:none;gap:8px}
+  #ctrl button,#ctrl a{background:rgba(0,0,0,.6);color:#fff;border:0;border-radius:20px;padding:9px 14px;font-size:13px;
+    text-decoration:none;cursor:pointer;font-family:system-ui,sans-serif}
+</style>
+</head>
+<body>
+
+<iframe id="site" allow="autoplay; fullscreen" title="Kad Jemputan"></iframe>
+
+<div id="cover"></div>
+
+<div id="ctrl">
+  <button id="musicBtn">🔊 Muzik</button>
+  <a href="https://walimatulurushisyamdanauni.canva.link/" target="_blank" rel="noopener">Buka terus ↗</a>
+</div>
+
+<audio id="bgm" src="lagu.mp3" loop preload="auto"></audio>
+
+<script>
+  var CANVA_URL = "https://walimatulurushisyamdanauni.canva.link/";
+  var audio = document.getElementById("bgm");
+  var cover = document.getElementById("cover");
+  var site = document.getElementById("site");
+  var ctrl = document.getElementById("ctrl");
+  var musicBtn = document.getElementById("musicBtn");
+
+  // Muat Canva dari awal (di belakang cover)
+  site.src = CANVA_URL;
+
+  cover.addEventListener("click", function () {
+    audio.play().then(function(){ musicBtn.textContent = "🔊 Muzik"; })
+      .catch(function(){ musicBtn.textContent = "▶ Tekan untuk main lagu"; });
+    cover.classList.add("hide");
+    ctrl.style.display = "flex";
+    setTimeout(function () { cover.style.display = "none"; }, 800);
+  });
+
+  audio.addEventListener("error", function () { musicBtn.textContent = "⚠ lagu.mp3 tak jumpa"; });
+
+  musicBtn.addEventListener("click", function () {
+    if (audio.paused) { audio.play().catch(function(){}); musicBtn.textContent = "🔊 Muzik"; }
+    else { audio.pause(); musicBtn.textContent = "🔇 Muzik"; }
+  });
+</script>
+</body>
+</html>
