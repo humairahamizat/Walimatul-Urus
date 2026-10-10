@@ -1,0 +1,136 @@
+
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Walimatul Urus | Jemputan</title>
+<style>
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: #210b10;
+  color: #fff5f2;
+  font-family: Georgia, serif;
+  text-align: center;
+}
+nav {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  padding: 15px 8px;
+  background: #080607;
+  font: 14px Arial, sans-serif;
+}
+nav a { color: white; text-decoration: none; }
+section { padding: 28px 14px 40px; }
+h1 { font-size: 34px; font-weight: normal; }
+h2 { font-weight: normal; font-style: italic; }
+p { line-height: 1.8; }
+button, .btn {
+  display: inline-block;
+  margin: 8px;
+  padding: 12px 24px;
+  border: 1px solid #ead5d5;
+  border-radius: 24px;
+  background: #f5e9e7;
+  color: #45131c;
+  font-size: 15px;
+  text-decoration: none;
+  cursor: pointer;
+}
+.invite-img {
+  display: block;
+  width: 100%;
+  max-width: 440px;
+  height: auto;
+  margin: 0 auto;
+}
+.cover { padding-top: 0; }
+.details {
+  max-width: 440px;
+  margin: 20px auto;
+  padding: 28px 18px;
+  border: 1px solid #bca1a1;
+  border-radius: 120px;
+  background: #3b151d;
+}
+.small { font: 12px Arial, sans-serif; }
+footer { padding: 25px; color: #e6caca; }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#home">Laman Utama</a>
+  <a href="#kad">Kad Jemputan</a>
+  <a href="#menu">Menu</a>
+</nav>
+
+<section id="home" class="cover">
+  <img class="invite-img" src="cover.png"
+       alt="Kulit jemputan walimatul urus">
+  <button id="openBtn">OPEN 💌</button>
+  <p class="small">Jemputan Walimatul Urus</p>
+</section>
+
+<section id="kad">
+  <h2>Kad Jemputan</h2>
+  <img class="invite-img" src="kad.png"
+       alt="Kad jemputan pengantin">
+  <div class="details">
+    <p>Dengan penuh kesyukuran,</p>
+    <h2>Walimatul Urus</h2>
+    <p>Menjemput anda ke majlis perkahwinan kami.</p>
+    <p><strong>Tarikh:</strong> Sila kemas kini</p>
+    <p><strong>Masa:</strong> Sila kemas kini</p>
+    <p><strong>Tempat:</strong> Sila kemas kini</p>
+  </div>
+</section>
+
+<section id="menu">
+  <h2>Maklumat Majlis</h2>
+  <img class="invite-img" src="menu.png"
+       alt="Maklumat dan atur cara majlis">
+  <p>Semoga kehadiran anda menyerikan majlis kami.</p>
+  <a class="btn" href="https://maps.google.com/"
+     target="_blank" rel="noopener">GOOGLE MAPS</a>
+  <a class="btn" href="https://wa.me/"
+     target="_blank" rel="noopener">RSVP WHATSAPP</a>
+</section>
+
+<section>
+  <p>🎵 Muzik Jemputan</p>
+  <audio id="music" controls loop>
+    <source src="music.mp3" type="audio/mpeg">
+  </audio>
+  <p class="small">Tekan OPEN untuk cuba memainkan muzik.</p>
+</section>
+
+<footer>
+  بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ
+  <p>Terima kasih atas doa dan restu anda 🤍</p>
+</footer>
+
+<script>
+const openBtn = document.getElementById("openBtn");
+const music = document.getElementById("music");
+
+openBtn.addEventListener("click", async () => {
+  try {
+    await music.play();
+  } catch (e) {
+    alert("Tekan butang Play pada pemain muzik untuk mula.");
+  }
+  document.getElementById("kad").scrollIntoView({
+    behavior: "smooth"
+  });
+});
+</script>
+
+</body>
+</html>
