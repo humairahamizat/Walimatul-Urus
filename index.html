@@ -28,7 +28,7 @@
 <div id="cover"></div>
 
 <div id="ctrl">
-  <a href="https://walimatulurushisyamdanauni.canva.link/" target="_blank" rel="noopener">Buka terus ↗</a>
+  <a href="https://walimatulurushisyamdanauni.canva.link/" target="_blank" rel="noopener">terus ke halaman ↗</a>
 </div>
 
 <audio id="bgm" src="lagu.mp3" loop preload="auto"></audio>
@@ -46,7 +46,7 @@
 
   cover.addEventListener("click", function () {
     audio.play().then(function(){ musicBtn.textContent = "🔊 Muzik"; })
-      .catch(function(){ musicBtn.textContent = "▶ Tekan untuk main lagu"; });
+      .catch(function(){ musicBtn.textContent = ""; });
     cover.classList.add("hide");
     ctrl.style.display = "flex";
     setTimeout(function () { cover.style.display = "none"; }, 800);
