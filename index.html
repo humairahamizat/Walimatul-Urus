@@ -46,7 +46,7 @@
 
   cover.addEventListener("click", function () {
     audio.play().then(function(){ musicBtn.textContent = "🔊 Muzik"; })
-      .catch(function(){ musicBtn.textContent = "🎼"; });
+      .catch(function(){ musicBtn.textContent = ""; });
     cover.classList.add("hide");
     ctrl.style.display = "flex";
     setTimeout(function () { cover.style.display = "none"; }, 800);
