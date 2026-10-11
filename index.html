@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Walimatul Urus Hisyam & Auni</title>
+<style>
+  html,body{margin:0;height:100%;overflow:hidden;background:#12040a}
+
+  #cover{position:fixed;inset:0;cursor:pointer;-webkit-tap-highlight-color:transparent;background:#12040a}
+
+  /* Lapisan belakang: gambar yang sama dikaburkan, supaya tiada jalur kosong di tepi/atas/bawah */
+  #cover .fill{position:absolute;inset:-40px;background:url("cover.jpg") center/cover no-repeat;filter:blur(28px) brightness(.8)}
+
+  /* Gambar utama: penuh, tak dipotong, kekal portrait dan tajam */
+  #cover picture,#cover img{position:absolute;inset:0;width:100%;height:100%}
+  #cover img{object-fit:contain;object-position:center;image-rendering:auto;
+    -webkit-mask-image:linear-gradient(to bottom,transparent 0,#000 6%,#000 94%,transparent 100%);
+    mask-image:linear-gradient(to bottom,transparent 0,#000 6%,#000 94%,transparent 100%)}
+
+  /* Petunjuk halus supaya tetamu tahu kena tekan */
+  #hint{position:absolute;left:0;right:0;bottom:calc(5% + env(safe-area-inset-bottom,0px));text-align:center;
+    color:#fff;font:12px/1 Georgia,serif;letter-spacing:.3em;text-transform:uppercase;opacity:.75;
+    text-shadow:0 1px 6px rgba(0,0,0,.8);animation:blink 2.4s ease-in-out infinite;pointer-events:none}
+  @keyframes blink{50%{opacity:.25}}
+</style>
+</head>
+<body>
+
+<div id="cover">
+  <div class="fill"></div>
+  <picture>
+    <source srcset="cover.webp" type="image/webp">
+    <img src="cover.jpg" alt="Walimatul Urus Hisyam &amp; Auni" draggable="false">
+  </picture>
+</div>
+
+<audio id="bgm" src="music.mp3" loop preload="auto"></audio>
+
+<script>
+  var CANVA_URL = "https://walimatulurushisyamdanauni.canva.link/";
+  var PLAY_MUSIC = true;          // letak false kalau lagu dah dimasukkan dalam Canva
+  var HIDDEN_DELAY_SAAT = 900;    // lagu pause selepas tetamu tinggalkan page ni sekian saat
+
+  var audio = document.getElementById("bgm");
+  var hint = document.getElementById("hint");
+  var tapped = false;
+
+  document.getElementById("cover").addEventListener("click", function () {
+    if (PLAY_MUSIC) { audio.play().catch(function(){}); tapped = true; }
+    var w = window.open(CANVA_URL, "_blank");
+    if (!w) { window.location.href = CANVA_URL; return; }
+    hint.textContent = "Sentuh untuk buka semula";
+  });
+
+  if (PLAY_MUSIC) {
+    var hideTimer = null, pausedByTimer = false;
+    document.addEventListener("visibilitychange", function () {
+      if (document.hidden) {
+        clearTimeout(hideTimer);
+        hideTimer = setTimeout(function () { if (!audio.paused) { pausedByTimer = true; audio.pause(); } }, HIDDEN_DELAY_SAAT * 1000);
+      } else {
+        clearTimeout(hideTimer);
+        if (pausedByTimer) audio.play().catch(function(){});
+        pausedByTimer = false;
+      }
+    });
+    function keepPlaying() { if (tapped && !document.hidden && audio.paused) audio.play().catch(function(){}); }
+    audio.addEventListener("pause", function () { setTimeout(keepPlaying, 150); });
+    audio.addEventListener("stalled", keepPlaying);
+    setInterval(keepPlaying, 1000);
+  }
+</script>
+</body>
+</html>
